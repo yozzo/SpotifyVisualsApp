@@ -1,49 +1,38 @@
 import React from "react";
 import Todo from "../components/Todo";
 import * as TodoActions from "../actions/TodoActions";
-import SpotifyStore from "../stores/SpotifyStore";
-import TodoStore from "../stores/TodoStore";
+import YouTube from "react-youtube";
+
+import ReactAudioPlayer from 'react-audio-player';
 
 export default class Featured extends React.Component {
-  constructor() {
-    super();
-    this.getSpotify = this.getSpotify.bind(this);
-
-    this.state = {
-      albums: SpotifyStore.getAll()
-    };
-  }
-
-  componentWillMount() {
-    SpotifyStore.on("change", this.getSpotify);
-  }
-
-  componentWillUnmount() {
-    SpotifyStore.removeListener("change", this.getSpotify);
-  }
-
-  getSpotify() {
-    this.setState({
-      albums: SpotifyStore.getAll()
-    });
-  }
-
-  reloadTodos() {
-    TodoActions.reloadTodos();
-  }
-
   render() {
-    // const { albums } = this.state;
-    // const AlbumComponents = albums.map((todo) => {
-    //     return <Todo key={todo.id} {...todo}/>;
-    // });
+    const opts = {
+      height: '390',
+      width: '640',
+      playerVars: { // https://developers.google.com/youtube/player_parameters
+        autoplay: 1
+      }
+    };
 
     return (
-      <div>
-        <button onClick={this.reloadTodos.bind(this)}>Reload!</button>
-        <h1>Albums</h1>
-        <ul>bla</ul>
-      </div>
-    );
+        <YouTube
+    videoId="3yhsPewIa5w"
+    opts={opts}
+    onReady={this._onReady}
+  />
+  );
+  }
+
+  componentDidUpdate() {
+    // event.target.stopVideo();
+    console.log('did update', this);
+  }
+
+  _onReady(event) {
+    console.log('event', event);
+
+    // access to player in all event handlers via event.target
+    event.target.playVideo();
   }
 }

@@ -9,16 +9,16 @@ class SpotifyStore extends EventEmitter {
         var spotifyApi = new SpotifyWebApi();
 
 // spotifyApi.setAccessToken('<here_your_access_token>');
-
+        //https://open.spotify.com/album/3ILBGXvUwP6kVni9wAFuCU
 // get The Bonobo's albums, using Promises through Promise, Q or when
-        spotifyApi.getArtistAlbums('0cmWgDlu9CwTgxPhf403hb')
+        spotifyApi.getArtistAlbums('2QgFpXr7jZc9KbyR9CsUHu')
             .then(function(data) {
                 console.log('Artist albums', data);
             }, function(err) {
                 console.error(err);
             });
 
-        this.albums = spotifyApi.getArtistAlbums('0cmWgDlu9CwTgxPhf403hb');
+        this.albums = spotifyApi.getArtistAlbums('2QgFpXr7jZc9KbyR9CsUHu');
     }
 
     createTodo(text) {
